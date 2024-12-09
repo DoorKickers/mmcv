@@ -123,9 +123,6 @@ class RoIAlignFunction(Function):
             sampling_ratio=ctx.sampling_ratio,
             pool_mode=ctx.pool_mode,
             aligned=ctx.aligned)
-        if torch.isnan(grad_input).any():
-            import pdb
-            pdb.set_trace()
         return grad_input, None, None, None, None, None, None
 
 
@@ -198,9 +195,6 @@ class RoIAlign(nn.Module):
             rois: Bx5 boxes. First column is the index into N.\
                 The other 4 columns are xyxy.
         """
-        if torch.isnan(input).any():
-            import pdb
-            pdb.set_trace()
         if self.use_torchvision:
             from torchvision.ops import roi_align as tv_roi_align
             if 'aligned' in tv_roi_align.__code__.co_varnames:
