@@ -1,4 +1,5 @@
 #include "pytorch_npu_helper.hpp"
+#include <iostream>
 
 using namespace NPU_NAME_SPACE;
 using namespace std;
@@ -31,6 +32,7 @@ Tensor nms_npu(Tensor boxes, Tensor scores, float iou_threshold, int offset) {
   auto outputsizeInt = outputsizeBool.to(at::kInt);
   auto countLen = at::sum(outputsizeInt, at::kInt);
   at::Tensor actual_output = output.slice(0, 0, countLen.item().toLong());
+
   actual_output = actual_output.to(at::kLong);
   return actual_output;
 }
